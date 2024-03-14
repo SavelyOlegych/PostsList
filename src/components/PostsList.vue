@@ -21,9 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 .posts {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px;
+  padding: 40px 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px;
@@ -35,7 +33,7 @@ export default {
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
     grid-gap: 20px;
-    padding: 20px;
+    padding: 30px 0;
   }
 
   &__item {

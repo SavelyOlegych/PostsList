@@ -1,12 +1,16 @@
 <template>
-  <PostsList />
+  <div class="container">
+    <SearchSection />
+    <PostsList />
+  </div>
 </template>
 
 <script>
 import PostsList from "@/components/PostsList.vue";
+import SearchSection from "@/components/SearchSection.vue";
 
 export default {
-  components: { PostsList },
+  components: { SearchSection, PostsList },
 };
 </script>
 
