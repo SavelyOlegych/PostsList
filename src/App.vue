@@ -1,9 +1,15 @@
 <template>
-  <section></section>
+  <PostsList />
 </template>
 
 <script>
-export default {};
+import PostsList from "@/components/PostsList.vue";
+
+export default {
+  components: { PostsList },
+};
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import "@/assets/scss/base";
+</style>
