@@ -1,21 +1,44 @@
 <template>
   <section class="posts">
-    <article class="posts__item" v-for="item of 16" :key="item">
-      <h2 class="posts__item-title">Lorem ipsum dolor sit amet.</h2>
+    <article class="posts__item" v-for="post of filteredPosts" :key="post.id">
+      <h2 class="posts__item-title">{{ post.title }}</h2>
       <div class="posts__item-text">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum rem,
-        repellendus! Animi aperiam architecto assumenda consectetur deserunt
-        error, facere laboriosam magnam nam numquam quasi rem, repellendus
-        soluta ullam velit vero.
+        {{ post.body }}
       </div>
-      <div class="posts__item-author">Lorem ipsum.</div>
+      <div class="posts__item-author">
+        {{ getAuthorName(post.userId) }}
+      </div>
     </article>
   </section>
 </template>
 
 <script>
+import { computed } from "vue";
+import usePosts from "@/composables/usePosts";
+import useUsers from "@/composables/useUsers";
+
 export default {
   name: "PostsList",
+  setup() {
+    const { posts } = usePosts();
+    const { filteredUsers } = useUsers();
+    const filteredUsersIds = computed(() =>
+      filteredUsers.value.map((user) => user.id)
+    );
+    const filteredPosts = computed(() =>
+      posts.filter((post) => filteredUsersIds.value.includes(post.userId))
+    );
+
+    const getAuthorName = (postAuthorId) => {
+      return filteredUsers.value.find((user) => user.id === postAuthorId)?.name;
+    };
+
+    return {
+      filteredPosts,
+      filteredUsers,
+      getAuthorName,
+    };
+  },
 };
 </script>
 
@@ -49,7 +72,7 @@ export default {
     }
 
     &-title {
-      margin: 0 0 10px;
+      margin: 0 0 15px;
 
       @media (max-width: 767px) {
         font-size: 20px;
@@ -57,7 +80,7 @@ export default {
     }
 
     &-text {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     &-author {

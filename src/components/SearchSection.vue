@@ -5,6 +5,7 @@
         class="search__input"
         type="text"
         placeholder="Filter by author..."
+        v-model="authorFilterValue"
       />
       <SearchIcon class="search__icon" />
     </div>
@@ -13,10 +14,23 @@
 
 <script>
 import SearchIcon from "@/components/icons/SearchIcon.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "SearchSection",
   components: { SearchIcon },
+  setup() {
+    const store = useStore();
+    const authorFilterValue = computed({
+      get: () => store.state.authorFilterValue,
+      set: (value) => store.commit("setAuthorFilterValue", value),
+    });
+
+    return {
+      authorFilterValue,
+    };
+  },
 };
 </script>
 
